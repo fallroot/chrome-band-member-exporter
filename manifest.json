@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "밴드 멤버 목록 내보내기",
+  "version": "0.1.0",
+  "background": {
+    "persitstent": false,
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://band.us/band/*/member"
+      ],
+      "js": [
+        "content-script.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
+  "page_action": {},
+  "permissions": [
+    "tabs"
+  ]
+}
