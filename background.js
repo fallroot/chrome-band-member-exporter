@@ -14,10 +14,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 })
 
-chrome.pageAction.onClicked.addListener(tab => {
-  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    chrome.tabs.sendMessage(tabs[0].id, { command: 'getMembers' }, response => {
-      console.log(response)
-    })
-  })
-})
+// chrome.pageAction.onClicked.addListener(tab => {
+//   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+//     chrome.tabs.sendMessage(tabs[0].id, { command: 'getMembers' }, response => {
+//       console.log(response)
+//     })
+//   })
+// })

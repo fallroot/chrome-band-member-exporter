@@ -24,7 +24,9 @@
     "48": "icon-48.png",
     "128": "icon-128.png"
   },
-  "page_action": {},
+  "page_action": {
+    "default_popup": "popup.html"
+  },
   "permissions": [
     "tabs"
   ]
