@@ -39,7 +39,7 @@ function makeJson (items) {
 }
 
 function makeSv (items, delimiter) {
-  return items.map(item => {
+  return [makeSvHeader()].concat(items.map(item => {
     return Object.values(item).map(value => {
       if (typeof value === 'string') {
         return `"${value.replace(/"/g, '\\"')}"`
@@ -47,7 +47,17 @@ function makeSv (items, delimiter) {
         return value
       }
     }).join(delimiter)
-  }).join('\n')
+  })).join('\n')
+}
+
+function makeSvHeader (delimiter) {
+  return [
+    '밴드 아이디',
+    '이름',
+    '전화번호',
+    '상태 메시지',
+    '프로필 이미지'
+  ].join(delimiter)
 }
 
 function makeCsv (items) {
