@@ -3,7 +3,7 @@
   "name": "밴드 멤버 목록 내보내기",
   "version": "0.1.0",
   "background": {
-    "persitstent": false,
+    "persistent": false,
     "scripts": [
       "background.js"
     ]
