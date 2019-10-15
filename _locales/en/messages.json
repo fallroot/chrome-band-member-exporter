@@ -1,0 +1,20 @@
+{
+  "appName": {
+    "message": "BAND Members Exporter"
+  },
+  "id": {
+    "message": "ID"
+  },
+  "mobile": {
+    "message": "Mobile"
+  },
+  "name": {
+    "message": "Name"
+  },
+  "profile": {
+    "message": "Profile"
+  },
+  "status": {
+    "message": "Status"
+  }
+}

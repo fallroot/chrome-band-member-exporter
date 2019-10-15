@@ -1,10 +1,18 @@
 const store = {}
 
 function init (members) {
-  store.members = members
+  initMessages()
+  getMembers().then(members => {
+    store.members = members
+    Array.from(document.querySelectorAll('a')).forEach(a => {
+      a.addEventListener('click', onClickDownload)
+    })
+  })
+}
 
-  Array.from(document.querySelectorAll('a')).forEach(a => {
-    a.addEventListener('click', onClickDownload)
+function initMessages () {
+  Array.from(document.querySelectorAll('[data-i18n]')).forEach(el => {
+    el.textContent = chrome.i18n.getMessage(el.dataset.i18n)
   })
 }
 
@@ -51,13 +59,7 @@ function makeSv (items, delimiter) {
 }
 
 function makeSvHeader (delimiter) {
-  return [
-    '밴드 아이디',
-    '이름',
-    '전화번호',
-    '상태 메시지',
-    '프로필 이미지'
-  ].join(delimiter)
+  return ['id', 'name', 'mobile', 'status', 'profile'].map(field => chrome.i18n.getMessage(field)).join(delimiter)
 }
 
 function makeCsv (items) {
@@ -75,4 +77,4 @@ function onClickDownload (event) {
   target.href = makeBlob(store.members, type)
 }
 
-getMembers().then(init)
+init()

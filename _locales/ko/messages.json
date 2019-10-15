@@ -1,0 +1,20 @@
+{
+  "appName": {
+    "message": "밴드 멤버 목록 내보내기"
+  },
+  "id": {
+    "message": "아이디"
+  },
+  "mobile": {
+    "message": "전화번호"
+  },
+  "name": {
+    "message": "이름"
+  },
+  "profile": {
+    "message": "프로필"
+  },
+  "status": {
+    "message": "상태"
+  }
+}
