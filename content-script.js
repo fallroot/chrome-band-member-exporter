@@ -4,7 +4,7 @@ function getMembers () {
     const subText = el.querySelector('.subText')
 
     return {
-      bandId: el.dataset.user_no,
+      id: el.dataset.user_no,
       name: el.dataset.user_name,
       mobile: lastInfo ? lastInfo.textContent : '',
       status: subText ? subText.textContent : '',

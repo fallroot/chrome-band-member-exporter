@@ -1,3 +1,4 @@
+const FIELDS = ['id', 'name', 'mobile', 'status', 'profile']
 const store = {}
 
 function init (members) {
@@ -16,6 +17,10 @@ function initMessages () {
   })
 }
 
+function getFields () {
+  return Array.from(document.querySelectorAll('[name=field]')).filter(el => el.checked).map(el => el.value)
+}
+
 function getMembers () {
   return new Promise(resolve => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
@@ -26,15 +31,21 @@ function getMembers () {
   })
 }
 
-function makeBlob (data, type) {
+function makeBlob (data, fields, type) {
+  const filtered = data.map(item => {
+    return fields.reduce((memo, field) => {
+      memo[field] = item[field]
+      return memo
+    }, {})
+  }, {})
   const array = []
 
   if (type === 'text/csv') {
-    array.push(makeCsv(data))
+    array.push(makeCsv(filtered, fields))
   } else if (type === 'text/tab-separated-values') {
-    array.push(makeTsv(data))
+    array.push(makeTsv(filtered, fields))
   } else if (type === 'application/json') {
-    array.push(makeJson(data))
+    array.push(makeJson(filtered))
   }
 
   const file = new Blob(array, { type })
@@ -46,8 +57,8 @@ function makeJson (items) {
   return JSON.stringify(items, null, 2)
 }
 
-function makeSv (items, delimiter) {
-  return [makeSvHeader()].concat(items.map(item => {
+function makeSv (items, fields, delimiter) {
+  return [makeSvHeader(fields)].concat(items.map(item => {
     return Object.values(item).map(value => {
       if (typeof value === 'string') {
         return `"${value.replace(/"/g, '\\"')}"`
@@ -58,23 +69,33 @@ function makeSv (items, delimiter) {
   })).join('\n')
 }
 
-function makeSvHeader (delimiter) {
-  return ['id', 'name', 'mobile', 'status', 'profile'].map(field => chrome.i18n.getMessage(field)).join(delimiter)
+function makeSvHeader (fields, delimiter) {
+  return fields.map(field => chrome.i18n.getMessage(field)).join(delimiter)
 }
 
-function makeCsv (items) {
-  return makeSv(items, ',')
+function makeCsv (items, fields) {
+  return makeSv(items, fields, ',')
 }
 
-function makeTsv (items) {
-  return makeSv(items, '\t')
+function makeTsv (items, fields) {
+  return makeSv(items, fields, '\t')
 }
 
 function onClickDownload (event) {
+  const fields = getFields()
+
+  if (!fields.length) {
+    event.preventDefault()
+    alert(chrome.i18n.getMessage('selectFields'))
+    return
+  }
+
   const target = event.currentTarget
   const type = target.dataset.type
+  const url = makeBlob(store.members, fields, type)
 
-  target.href = makeBlob(store.members, type)
+  target.href = url
+  setTimeout(() => window.URL.revokeObjectURL(url), 1000)
 }
 
 init()
