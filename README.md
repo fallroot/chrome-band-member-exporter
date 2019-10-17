@@ -6,6 +6,7 @@
 
 ## 사용법
 
+* [크롬 웹 스토어](https://chrome.google.com/webstore/detail/fgogpjacddelfhkpagfjcgoplgbhghca/)에서 확장 프로그램을 설치한다.
 * [밴드 홈페이지](https://band.us)에 접속 후 로그인한다.
 * 특정 밴드의 멤버 페이지로 이동한다.
 * 확장 프로그램의 아이콘을 클릭한다.
