@@ -22,10 +22,10 @@ function getFields () {
 }
 
 function getMembers () {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       chrome.tabs.sendMessage(tabs[0].id, { command: 'getMembers' }, response => {
-        resolve(response.members)
+        response ? resolve(response.members) : reject()
       })
     })
   })
