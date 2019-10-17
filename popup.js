@@ -58,7 +58,7 @@ function makeJson (items) {
 }
 
 function makeSv (items, fields, delimiter) {
-  return [makeSvHeader(fields)].concat(items.map(item => {
+  return [makeSvHeader(fields, delimiter)].concat(items.map(item => {
     return Object.values(item).map(value => {
       if (typeof value === 'string') {
         return `"${value.replace(/"/g, '\\"')}"`
